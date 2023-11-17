@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { UserAuth } from "../context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const { user, googleSignIn, logOut } = UserAuth();
@@ -45,6 +47,15 @@ const Navbar = () => {
             <Link href="/profile">Profile</Link>
           </li>
         )}
+      </ul>
+
+      {/* Nuevo código para el icono de carrito de compras */}
+      <ul className="flex items-center">
+        <li className="p-2 cursor-pointer">
+          {/* Enlace o función para mostrar el carrito */}
+          {/* Puedes personalizar el onClick según tu lógica */}
+          <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+        </li>
       </ul>
 
       {loading ? null : !user ? (
