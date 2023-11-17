@@ -38,6 +38,25 @@ export default function Home() {
     getData();
   }, []);
 
+  const handleAddToCart = (item) => {
+    let cart = JSON.parse(localStorage.getItem("cart")) || {};
+    const key = item.itemID;
+    cart[key]
+      ? (cart[key].quantity += 1)
+      : (cart[key] = {
+          itemID: item.itemID,
+          itemName: item.itemName,
+          itemDescription: item.itemDescription,
+          itemImage: item.itemImage,
+          itemPrice: item.itemPrice,
+          publishedDate: item.publishedDate,
+          sellerName: item.sellerName,
+          sellerPhone: item.sellerPhone,
+          status: item.status,
+          quantity: 1,
+        });
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
   return (
     <main className="p-4">
       <h1 className="text-4xl font-bold">Firebase + Next.js</h1>
@@ -56,7 +75,15 @@ export default function Home() {
             <p className="text-gray-600">Vendedor: {item.sellerName}</p>
             <p className="text-gray-600">Teléfono del vendedor: {item.sellerPhone}</p>
             <p className="text-gray-600">Estado: {item.status}</p>
-            <p className="text-gray-600">Fecha de publicación: {item.publishedDate}</p>
+            <p className="text-gray-600">
+              Fecha de publicación: {item.publishedDate}
+            </p>
+            <button
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => handleAddToCart(item)}
+            >
+              Agregar al carrito
+            </button>
           </div>
         ))}
       </div>
