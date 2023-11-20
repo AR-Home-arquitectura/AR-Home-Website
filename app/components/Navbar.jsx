@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useState, useEffect, use } from "react";
 import Link from "next/link";
 import { UserAuth } from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "../context/CartProvider";
 
 const Navbar = () => {
   const { user, googleSignIn, logOut } = UserAuth();
   const [loading, setLoading] = useState(true);
-
+  const { cartCount } = useCart();
   const handleSignIn = async () => {
     try {
       await googleSignIn();
@@ -48,16 +50,20 @@ const Navbar = () => {
           </li>
         )}
       </ul>
-
-      {/* Nuevo código para el icono de carrito de compras */}
       <ul className="flex items-center">
         <li className="p-2 cursor-pointer">
-          {/* Enlace o función para mostrar el carrito */}
-          {/* Puedes personalizar el onClick según tu lógica */}
-          <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+          <Link href="/shoppingCar">
+            <div className="relative cursor-pointer">
+              <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+              {cartCount > 0 && (
+                <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </div>
+          </Link>
         </li>
       </ul>
-
       {loading ? null : !user ? (
         <ul className="flex">
           <li onClick={handleSignIn} className="p-2 cursor-pointer">
