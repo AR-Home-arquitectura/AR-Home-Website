@@ -9,13 +9,18 @@ const Page = () => {
     setCart(cart);
   }, []);
 
+  const updateCart = (newCart) => {
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCart(newCart);
+  };
+
   const increaseQuantity = (itemID) => {
     setCart((prevCart) => {
       const newCart = { ...prevCart };
       if (newCart[itemID]) {
         newCart[itemID].quantity += 1;
       }
-      localStorage.setItem("cart", JSON.stringify(newCart));
+      updateCart(newCart);
       return newCart;
     });
   };
@@ -25,8 +30,12 @@ const Page = () => {
       const newCart = { ...prevCart };
       if (newCart[itemID] && newCart[itemID].quantity > 0) {
         newCart[itemID].quantity -= 1;
+        // Eliminar elemento si la cantidad es 0
+        if (newCart[itemID].quantity === 0) {
+          delete newCart[itemID];
+        }
       }
-      localStorage.setItem("cart", JSON.stringify(newCart));
+      updateCart(newCart);
       return newCart;
     });
   };
