@@ -15,6 +15,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>Arhome</title>
+        <meta name='Webapp' content='Webapp' />
+      </head>
       <body className={inter.className}>
         <AuthContextProvider>
           <CartProvider>
