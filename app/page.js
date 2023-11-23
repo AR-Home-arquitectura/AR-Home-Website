@@ -59,8 +59,7 @@ export default function Home() {
   };
   return (
     <main className="p-4">
-      <h1 className="text-4xl font-bold">Firebase + Next.js</h1>
-      <p className="text-xl mt-4">Ejemplo de integración de Firebase con Next.js</p>
+      <h1 className="text-4xl font-bold">AR Home Products</h1>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {data.map((item) => (
           <div key={item.itemID} className="bg-white p-4 rounded-md shadow-md">
